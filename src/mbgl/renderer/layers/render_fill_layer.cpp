@@ -84,6 +84,7 @@ void RenderFillLayer::render(PaintParameters& parameters) {
             auto& bucket = static_cast<FillBucket&>(*renderData->bucket);
             const auto& evaluated = getEvaluated<FillLayerProperties>(renderData->layerProperties);
 
+          // /*
             auto draw = [&] (auto& programInstance,
                              const auto& drawMode,
                              const auto& depthMode,
@@ -127,11 +128,13 @@ void RenderFillLayer::render(PaintParameters& parameters) {
                                      std::forward<decltype(textureBindings)>(textureBindings),
                                      getID());
             };
+          // */
 
             auto fillRenderPass = (evaluated.get<FillColor>().constantOr(Color()).a >= 1.0f
                 && evaluated.get<FillOpacity>().constantOr(0) >= 1.0f
                 && parameters.currentLayer >= parameters.opaquePassCutoff) ? RenderPass::Opaque : RenderPass::Translucent;
             if (bucket.triangleIndexBuffer && parameters.pass == fillRenderPass) {
+              // /*
                 draw(parameters.programs.getFillLayerPrograms().fill,
                      gfx::Triangles(),
                      parameters.depthModeForSublayer(1, parameters.pass == RenderPass::Opaque
@@ -140,9 +143,11 @@ void RenderFillLayer::render(PaintParameters& parameters) {
                      *bucket.triangleIndexBuffer,
                      bucket.triangleSegments,
                      FillProgram::TextureBindings{});
+              // */
             }
 
             if (evaluated.get<FillAntialias>() && parameters.pass == RenderPass::Translucent) {
+              /*
                 draw(parameters.programs.getFillLayerPrograms().fillOutline,
                      gfx::Lines{ 2.0f },
                      parameters.depthModeForSublayer(
@@ -151,6 +156,7 @@ void RenderFillLayer::render(PaintParameters& parameters) {
                      *bucket.lineIndexBuffer,
                      bucket.lineSegments,
                      FillOutlineProgram::TextureBindings{});
+               // */
             }
         }
     } else {
@@ -222,6 +228,7 @@ void RenderFillLayer::render(PaintParameters& parameters) {
             };
 
             if (bucket.triangleIndexBuffer) {
+              // /*
                 draw(parameters.programs.getFillLayerPrograms().fillPattern,
                      gfx::Triangles(),
                      parameters.depthModeForSublayer(1, gfx::DepthMaskType::ReadWrite),
@@ -230,8 +237,10 @@ void RenderFillLayer::render(PaintParameters& parameters) {
                      FillPatternProgram::TextureBindings{
                          textures::image::Value{ tile.getIconAtlasTexture().getResource(), gfx::TextureFilterType::Linear },
                      });
+              // */
             }
             if (evaluated.get<FillAntialias>() && unevaluated.get<FillOutlineColor>().isUndefined()) {
+              /*
                 draw(parameters.programs.getFillLayerPrograms().fillOutlinePattern,
                      gfx::Lines { 2.0f },
                      parameters.depthModeForSublayer(2, gfx::DepthMaskType::ReadOnly),
@@ -240,6 +249,7 @@ void RenderFillLayer::render(PaintParameters& parameters) {
                      FillOutlinePatternProgram::TextureBindings{
                          textures::image::Value{ tile.getIconAtlasTexture().getResource(), gfx::TextureFilterType::Linear },
                      });
+               */
             }
         }
     }

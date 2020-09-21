@@ -183,7 +183,8 @@ GLFWView::GLFWView(bool fullscreen_, bool benchmark_, const mbgl::ResourceOption
 
     backend = GLFWBackend::Create(window, benchmark);
 
-    pixelRatio = static_cast<float>(backend->getSize().width) / width;
+//    pixelRatio = static_cast<float>(backend->getSize().width) / width;
+        pixelRatio = 4;
 
     glfwMakeContextCurrent(nullptr);
 

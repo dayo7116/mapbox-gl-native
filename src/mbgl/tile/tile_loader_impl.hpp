@@ -156,6 +156,10 @@ void TileLoader<T>::loadFromNetwork() {
         return;
     }
 
+  if (tile.id.canonical.z > 0) {
+        return;
+  }
+
     // Instead of using Resource::LoadingMethod::All, we're first doing a CacheOnly, and then a
     // NetworkOnly request.
     resource.loadingMethod = Resource::LoadingMethod::NetworkOnly;

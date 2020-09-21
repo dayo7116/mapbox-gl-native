@@ -96,7 +96,8 @@ int main(int argc, char *argv[]) {
     }
 
     // Set access token if present
-    std::string token(getenv("MAPBOX_ACCESS_TOKEN") ?: "");
+    std::string token(getenv("MAPBOX_ACCESS_TOKEN") ?: "pk.eyJ1Ijoic3R1cGlkYWkiLCJhIjoiY2l5bzluMmFoMDA2NzJxcGloMzVxNHN0NCJ9.STLh_u7mwg3xHoa0wtSLyQ");
+
     if (token.empty()) {
         mbgl::Log::Warning(mbgl::Event::Setup, "no access token set. mapbox.com tiles won't work.");
     }

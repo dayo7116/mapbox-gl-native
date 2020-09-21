@@ -1051,3 +1051,7 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/render-test)
 if(EXISTS ${PROJECT_SOURCE_DIR}/internal/internal.cmake)
     include(${PROJECT_SOURCE_DIR}/internal/internal.cmake)
 endif()
+
+include(${PROJECT_SOURCE_DIR}/GroupSourcesByFolder.cmake)
+GroupSourcesByFolder(mbgl-core)
+
